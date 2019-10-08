@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--bean的注册 start-->
+
+    <!--注册bean-->
+    <bean id="myService" class="com.dy.bean_register.MyService" scope="prototype"></bean>
+
+    <!--动态工厂bean-->
+    <bean id="myBeanFactory" class="com.dy.bean_register.MyBeanFactory"></bean>
+    <bean id="myService01" factory-bean="myBeanFactory" factory-method="myService"></bean>
+
+    <!--静态工厂bean-->
+    <bean id="myService02" class="com.dy.bean_register.MyStaticFactory" factory-method="myService"></bean>
+
+    <!--
+        bean的域属性
+            scope="prototype" 原型模式，每次获取bean都创建一个新的bean
+            scope="singleton" 单例模式，只创建一次bean，每次都获取此bean的引用
+    -->
+    <bean id="protoMyService" class="com.dy.bean_register.MyService" scope="prototype"></bean>
+    <bean id="singleMyService" class="com.dy.bean_register.MyService" scope="singleton"></bean>
+
+    <!--bean的注册 end-->
+
+
+    <!--bean的属性注入 基础 start-->
+
+    <!--也可以不指定id，而使用name指定bean名称。开始是id不能使用特殊字符，例如 ‘/’，而name可以，现在spring版本已无此限制，故指定name和指定id没有区别-->
+
+    <!--
+        总结：
+            1. 8个基本数据类型都直接以字符串形式赋值即可
+            2. 自定义形式的属性赋值，可采用ref指定
+            3. 数组、集合、map一类型的数据都有对应的标签可以注入值属性，例如 <array> <list>
+    -->
+    <bean name="myBean" class="com.dy.bean_field.MyBean">
+
+        <property name="b" value="12"/>
+        <property name="sh" value="159"/>
+        <property name="i" value="1599"/>
+        <property name="longnum" value="8888888"/>
+        <property name="flo" value="15.201"/>
+        <property name="dou" value="15.000006"/>
+        <property name="bool" value="true"/>
+        <property name="ch" value="s"/>
+
+        <property name="str" value="qwerty"/>
+        <property name="person" ref="myPerson"/>
+
+        <property name="strs">
+            <array>
+                <value>str1</value>
+                <value>str2</value>
+            </array>
+        </property>
+
+        <property name="list">
+            <list>
+                <value>aaa</value>
+                <value>bbb</value>
+            </list>
+        </property>
+
+        <property name="set">
+            <set>
+                <value>set1</value>
+                <value>set2</value>
+            </set>
+        </property>
+
+        <property name="map">
+            <map>
+                <entry key="k1" value-ref="myPerson"/>
+                <entry key="k1" value-ref="myPerson"/>
+            </map>
+        </property>
+
+        <property name="prop">
+            <props>
+                <prop key="pk1">value1</prop>
+                <prop key="pk2">value2</prop>
+            </props>
+        </property>
+
+    </bean>
+
+    <bean id="myBean01" class="com.dy.bean_field.MyBean">
+
+        <!--当集合类型赋值为基本属性时，可以使用以下的简写形式-->
+        <property name="strs" value="111,222"/>
+        <property name="list" value="aaa,bbb"/>
+        <property name="set" value="ccc,ddd"/>
+
+        <!--自定义属性还可以使用内部bean的形式给其赋值-->
+        <property name="person">
+            <bean id="myPerson01" class="com.dy.bean_field.Person"/>
+        </property>
+
+    </bean>
+
+    <bean id="myPerson" class="com.dy.bean_field.Person"></bean>
+
+    <!--bean的属性注入 基础 end-->
+
+
+    <!--bean的属性注入 进阶 start-->
+
+
+    <!--bean的属性注入 进阶 end-->
+
+
+    <!--bean的生命周期 start-->
+
+    <!--注册bean后处理器-->
+    <bean class="com.dy.bean_life.MyBeanPostProcessor"/>
+    <bean id="myLifeBean" class="com.dy.bean_life.MyLifeBean" init-method="init" destroy-method="end">
+        <property name="str" value="123"/>
+    </bean>
+
+
+    <!--bean的生命周期 end-->
+</beans>
