@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+    <!--
+        spring-mvc 框架 与 tomcat服务器结合使用 通过DispatchServlet接管所有http请求，来实现spring-mvc
+        对整个web服务的接管，所以分析spring-mvc的运行流程从分析DispatchServlet流程开始
+    -->
+
+    <mvc:annotation-driven conversion-service="formatConversionService">
+        <mvc:message-converters>
+            <bean class="com.dy.component.messageconverter.TestMessageConverter"></bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+
+    <context:component-scan base-package="com.dy"></context:component-scan>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+    <!--该类型转化器不含格式化功能-->
+    <bean id="myConversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean id="testConverter" class="com.dy.component.converters.TestComverter"></bean>
+            </set>
+        </property>
+    </bean>
+
+    <!--支持属性上标注 @DateTimeFormat 注解进行日期格式化-->
+    <bean id="formatConversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean id="testConverter" class="com.dy.component.converters.TestComverter"></bean>
+            </set>
+        </property>
+    </bean>
+
+
+
+</beans>
