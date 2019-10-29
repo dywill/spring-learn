@@ -1,4 +1,4 @@
-package dao;
+package dy.dao;
 
 import bean.Customer;
 import org.apache.ibatis.annotations.Param;

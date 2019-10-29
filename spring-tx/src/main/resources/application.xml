@@ -26,7 +26,7 @@
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="dao"/>
+        <property name="basePackage" value="dy.dao"/>
     </bean>
 
     <bean id="myTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -35,6 +35,6 @@
 
     <tx:annotation-driven transaction-manager="myTransactionManager"/>
 
-    <context:component-scan base-package="service"/>
+    <context:component-scan base-package="dy.service"/>
 
 </beans>

@@ -15,6 +15,7 @@
         <module>spring-aop</module>
         <module>spring-tx</module>
         <module>spring-mvc</module>
+        <module>spring-annotation</module>
     </modules>
 
     <!--父模块用于指定jar包版本，子模块依然需要导入自己需要的jar，但不需要指定版本号以及scope-->

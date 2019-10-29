@@ -1,9 +1,9 @@
-package service;
+package dy.service;
 
 import bean.Book;
 import bean.Customer;
-import dao.BookMapper;
-import dao.CustomerMappler;
+import dy.dao.BookMapper;
+import dy.dao.CustomerMappler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -51,7 +51,7 @@ public class BuyService {
         /**
          * 若在只读事务中添加 数据库的修改，添加，删除语句，则该方法会报错
          *
-         * dy.springframework.dao.TransientDataAccessResourceException:
+         * dy.springframework.dy.dao.TransientDataAccessResourceException:
          * ### Error updating database.  Cause: java.sql.SQLException: Connection is read-only. Queries leading to data modification are not allowed
          *
          */

@@ -46,8 +46,6 @@ entity:
 
 -----------------------------------------------------------<br>
 
-
-
 json:<a id="testJson"> test json</a> ------ <a id="testJson001"> test json001</a>
 
 <script>
@@ -94,6 +92,13 @@ json:<a id="testJson"> test json</a> ------ <a id="testJson001"> test json001</a
     });
 </script>
 
+-----------------------------------------------------------<br>
+
+view:<a href="/test/view"> dy view </a>
+
+-----------------------------------------------------------<br>
+
+view:<a href="/test/exception?i=10"> excption view </a>
 
 </body>
 </html>
