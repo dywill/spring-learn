@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--该标签用于引入外部配置文件，相对路径为从类路径下寻找文件-->
+    <properties resource="mybatis/db.properties"></properties>
+
+    <!--配置mybatis一些重要的属性-->
+    <settings>
+        <!--将类似于login_name的数据路列名映射为loginName的java属性-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!--为常用的java实体类起别名，以简化配置-->
+    <typeAliases>
+        <!--给某个java bean 起别名，默认为该类名的类名-->
+        <typeAlias type="com.dy.entity.Book" alias="book"/>
+
+        <!--给某个包下的所有类起别名，别名默认为类名-->
+        <package name="com.dy.entity"/>
+
+        <!--推荐不为类其别名，直接使用全限定性类名比较便于使用-->
+    </typeAliases>
+
+    <!--注册自定义的处理器-->
+    <typeHandlers>
+        <typeHandler handler="com.dy.handlers.TestTypeHandler"></typeHandler>
+    </typeHandlers>
+
+    <!--
+        配置环境
+            可配置子标签 <environment>
+    -->
+    <environments default="development">    <!--default为默认使用的环境配置-->
+        <environment id="development">
+
+            <!--事务配置以及数据源都会使用第三方，其实不用配置，于spring整合后由spring来进行配置-->
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--mybatis用于解决数据库移植的问题-->
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql"/>
+    </databaseIdProvider>
+
+    <!--引入的外部xml sql映射配置文件-->
+    <mappers>
+
+        <!--指定的xml路径-->
+        <mapper resource="mybatis/mapper/bookDao.xml"/>
+
+        <!--
+            1.该类的查询/更新等方法通过注解，添加上过sql
+            2.在该类的包下添加一个同名的xml配置文件
+         -->
+        <!--<mapper class="com.dy.dao.BookDao"/>-->
+
+        <!--批量注册sql映射文件，默认为注册包下的同名xml文件-->
+        <!--<package name="com.dy.dao"/>-->
+        
+    </mappers>
+</configuration>

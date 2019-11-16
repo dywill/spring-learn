@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dy.dao.BookDao"> <!--填写接口的类-->
+
+    <!--
+        1. 缓存相关标签
+        <cache></cache>
+        <cache-ref namespace=""/>
+
+        缓存相关：
+            1. 一级缓存： 默认开启（不需要关闭），缓存范围为会话级别，即一个openSession一个缓存，当会话结束后，该缓存即被销毁
+            2. 二级缓存： nameSpace级别的缓存，多个会话共用一个缓存
+                使用方法: 1.在setting.xml配置二级缓存开关
+                          2.在对应dao的xml中添加cache标签即可
+                <cache eviction="缓存策略" flushInterval="缓存刷新时间" readOnly="是否只读" size="缓存大小"></cache>
+     -->
+
+    <!--该dao使用二级缓存-->
+    <cache></cache>
+
+    <!--databaseId用于根据使用数据库来执行对应的sqk-->
+    <select id="getById" resultType="com.dy.entity.Book" databaseId="mysql">
+        select * from book where id = #{id}
+    </select>
+
+    <!--useGeneratedKeys 用于获取自增主键的值，指定主键对应的 对象属性-->
+    <insert id="insertBook" useGeneratedKeys="true" keyProperty="id">
+        <!--
+            同样用于获取主键，此代码意思为在插入前获取最大的主键 + 1赋给主键
+            <selectKey keyProperty="id" order="BEFORE" resultType="integer">
+                select max(id) + 1 from book
+            </selectKey>
+        -->
+
+        insert into book (book_name,price,stock) values (#{bookName},#{price},#{stock})
+    </insert>
+
+    <!--自定义封装规则-->
+    <resultMap id="myBookMap" type="com.dy.entity.Book">
+        <!--主键以及属性设置数据库列名和java实体类属性的映射关系-->
+        <id property="id" column="id"/>
+        <result property="bookName" column="book_name"/>
+
+        <!--设置实体类中实体类的属性-->
+        <!--
+            方法1 使用级联属性封装
+        -->
+        <result property="person.name" column="person_name"/>
+
+        <!--
+            方法2 使用association标签
+        -->
+        <association property="person" javaType="com.dy.entity.Person">
+            <id property="name" column="person_name"/>
+            <result property="gender" column="person_gender"/>
+        </association>
+
+        <!--
+            定义 1 - n， n - n 时的中的集合属性, 使用collection标签
+            标签属性介绍
+                property: 集合在java实体类中属性名
+                ofType：集合中的元素类型
+        -->
+        <collection property="persons" ofType="com.dy.entity.Person">
+            <id property="name" column="person_name"/>
+            <result property="gender" column="person_gender"/>
+        </collection>
+
+        <!--
+            以上查询通过联合查询查询即可
+            例如 select book.*, person.* from book left join person on book.id = person.book_id
+        -->
+    </resultMap>
+
+
+    <!--分步查询 todo -->
+<!--    <select id="" resultMap="">
+
+    </select>-->
+
+    <!--动态sql不继续复习-->
+
+
+</mapper>

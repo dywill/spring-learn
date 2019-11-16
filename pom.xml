@@ -16,6 +16,7 @@
         <module>spring-tx</module>
         <module>spring-mvc</module>
         <module>spring-annotation</module>
+        <module>mybatis</module>
     </modules>
 
     <!--父模块用于指定jar包版本，子模块依然需要导入自己需要的jar，但不需要指定版本号以及scope-->
@@ -136,7 +137,12 @@
                 <version>2.9.8</version>
             </dependency>
 
-
+            <!--日志相关包-->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.17</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
