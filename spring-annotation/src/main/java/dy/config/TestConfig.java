@@ -31,6 +31,8 @@ import org.springframework.stereotype.Repository;
         // useDefaultFilters = false 默认为true 即会将扫描包下的所有组件加入ioc容器，设置为false + includeFilters 可实现只向ioc容器中2加入指定组件的功能
 )
 
+@PropertySource(value = "classpath:testprop.properties")
+
 // 该注解告诉spring 该类 等于 配置版的 applicationContext.xml
 @Configuration
 public class TestConfig {
@@ -77,4 +79,11 @@ public class TestConfig {
 
         return person;
     }
+
+    @Primary
+    @Bean
+    public Person primaryPerson(){
+        return new Person();
+    }
+
 }

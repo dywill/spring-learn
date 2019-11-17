@@ -1,7 +1,10 @@
 package dy.entities;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class Person {
 
+    @Value("${person.name}")
     private String name;
     private Integer age;
 

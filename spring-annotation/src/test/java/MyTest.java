@@ -49,4 +49,13 @@ public class MyTest {
         System.out.println(bean.getClass().getName());
         System.out.println(beanFactory.getClass().getName());
     }
+
+    @Test
+    public void test003(){
+        /**
+         * 通过@Primary指定了优先获取组件
+         */
+        Person bean = applicationContext.getBean(Person.class);
+        System.out.println(bean.getName());
+    }
 }
