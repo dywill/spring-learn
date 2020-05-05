@@ -17,7 +17,12 @@
         <module>spring-mvc</module>
         <module>spring-annotation</module>
         <module>mybatis</module>
+        <module>source-code-IoC</module>
     </modules>
+
+    <properties>
+        <spring.version>5.2.5.RELEASE</spring.version>
+    </properties>
 
     <!--父模块用于指定jar包版本，子模块依然需要导入自己需要的jar，但不需要指定版本号以及scope-->
     <dependencyManagement>
@@ -33,26 +38,26 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
-                <version>4.3.19.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <!--核心容器-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
-                <version>4.3.19.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
-                <version>4.3.19.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
-                <version>4.3.19.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
 
 
@@ -60,26 +65,26 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
-                <version>4.3.19.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aspects</artifactId>
-                <version>4.3.19.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <!--spring 事务控制-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-tx</artifactId>
-                <version>4.3.19.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
-                <version>4.3.19.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <!--数据库连接包-->
