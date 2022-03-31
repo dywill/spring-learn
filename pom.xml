@@ -21,7 +21,7 @@
     </modules>
 
     <properties>
-        <spring.version>5.2.5.RELEASE</spring.version>
+        <spring.version>5.3.18</spring.version>
     </properties>
 
     <!--父模块用于指定jar包版本，子模块依然需要导入自己需要的jar，但不需要指定版本号以及scope-->
